@@ -1,12 +1,12 @@
 # StoreUpdater
 
-### What It does.
+## What It does.
 
 This store updater app is designed to take data from a txt file and through various business rules advance both the time remaining to sell the item and the quality value of the item.
 
-### How to use it
+## How to use it
 
-#### Step one
+### Step one
 
 After cloning the repo, Create a .txt file in the Reports folder of the InventoryUpdater project folder.
 
