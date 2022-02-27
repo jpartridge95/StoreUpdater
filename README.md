@@ -10,10 +10,17 @@ This store updater app is designed to take data from a txt file and through vari
 
 After cloning the repo, Create a .txt file in the Reports folder of the InventoryUpdater project folder.
 
+One has been Provided for you but you may need to change the date to the current date.
+
 **Notes**
 
 The filename of the .txt file must be the current date in the following format DD-MM-YYYY for example the 21st of March 2015 would be 21-03-2015.txt
 
 The list of items should be structured as so:
 
-[**ProductName**] [**SellIn**] [**Quality**]
+[**ProductName** *(string)*] [**SellIn** *(int)*] [**Quality** *(int)*]
+
+
+### Step Two
+
+
