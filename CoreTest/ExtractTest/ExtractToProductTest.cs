@@ -6,7 +6,7 @@ namespace CoreTest.ExtractTest
     public class ExtractToProductTest
     {
         [Fact]
-        public void ExtractToProduct_ReturnsProductValidator()
+        public void ExtractToProduct_ReturnsProduct()
         {
             // Arrange
             string product = "Aged Brie 1 1";
