@@ -6,11 +6,25 @@ This store updater app is designed to take data from a txt file and through vari
 
 ## How to use it
 
-### Step one
+You will want to clone the repo before going any further.
 
-After cloning the repo, Create a .txt file in the Reports folder of the InventoryUpdater project folder.
+### Step One - Building the app
 
-One has been Provided for you but you may need to change the date to the current date.
+Using Powershell navigate to directory containing the source code you have cloned.
+
+Run the following command (edit if you know what you are doing).
+
+`dotnet publish InventoryUpdater -o C:\Users\[YourUsernameHere]\Documents\Updater\ProgramFiles`
+
+Go Into your documents and look for the Updater folder, this is where all your application files live.
+
+Inside the application folder create a new folder and name it Reports (Case sensitive).
+
+#### Well done, you have completed setup ⭐
+
+### Step two
+
+Inside the reports folder create a .txt file with the data you need in.
 
 **Notes**
 
@@ -20,13 +34,17 @@ The list of items should be structured as so:
 
 [**ProductName**] [**SellIn**] [**Quality**]
 
+eg. Frozen Item 24 42
 
-### Step Two
+### Supported Items
+- Frozen Item
+- Fresh Item
+- Soap
+- Christmas Crackers
+- Aged Brie
+- *Any other input will be declared invalid*
 
-**Option one** 
 
-Using powershell navigate to the InventoryUpdater directory in the solution and type
 
-`dotnet run`
 
-If you need any assistance using Powershell check out Microsoft's introduction to it [here](https://docs.microsoft.com/en-us/learn/modules/introduction-to-powershell/)
+
