@@ -2,24 +2,22 @@
 
 namespace InventoryUpdater.Products
 {
-    public class Advancer
+    public interface IAdvancer
     {
-        private List<IProductName> Products;
+        void Advance(List<IProductName> products);
+    }
 
-        public Advancer(List<IProductName> products)
+    public class Advancer : IAdvancer
+    {
+        public void Advance(List<IProductName> products)
         {
-            Products = products;
-        }
-
-        public void Advance()
-        {
-            for(int i = 0; i < Products.Count; i++)
+            for(int i = 0; i < products.Count; i++)
             {
-                if (Products[i] is INamedProduct)
+                if (products[i] is INamedProduct)
                 {
-                    INamedProduct product = (INamedProduct)Products[i];
+                    INamedProduct product = (INamedProduct)products[i];
                     product.AdvanceTime();
-                    Products[i] = (IProductName)product;
+                    products[i] = (IProductName)product;
                 }
             }
         }

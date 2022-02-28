@@ -1,13 +1,6 @@
-﻿using Core.DateTimeService;
-using Core.IO;
+﻿using Core.IO;
 using InventoryUpdater.File;
-using InventoryUpdater.Process;
 using InventoryUpdater.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryUpdater.Process
 {
@@ -16,15 +9,27 @@ namespace InventoryUpdater.Process
         private readonly IListExtraction _extractor;
         private readonly IReadFile _reader;
         private readonly ISubClassListBuilder _builder;
+        private readonly IAdvancer _advancer;
+        private readonly IGroupValidator _validator;
+        private readonly IProductsPrinter _printer;
+        private readonly IWriter _writer;
 
         public Runner(
             IListExtraction extractor,
             IReadFile reader,
-            ISubClassListBuilder builder)
+            ISubClassListBuilder builder,
+            IAdvancer advancer,
+            IGroupValidator validator,
+            IProductsPrinter printer,
+            IWriter writer)
         {
             _extractor = extractor;
             _reader = reader;
             _builder = builder;
+            _advancer = advancer;
+            _validator = validator;
+            _printer = printer;
+            _writer = writer;
         }
 
         public async void Run()
@@ -35,17 +40,15 @@ namespace InventoryUpdater.Process
 
             var subClassList = _builder.BuildList(extractedToObjects);
 
-            Advancer advancer = new Advancer(subClassList);
-            advancer.Advance();
+            _advancer.Advance(subClassList);
 
-            Validator validator = new Validator(subClassList);
-            validator.ValidateAllNumeric();
+            _validator.ValidateAllNumeric(subClassList);
 
-            MakeStringList printer = new MakeStringList(subClassList);
-            var finalList = printer.PrintProducts();
+            var finalList = _printer.PrintProducts(subClassList);
 
-            WriteToFile writer = new WriteToFile(new DateTimeProvider(), finalList);
-            await writer.WriteData();
+            await _writer.WriteData(finalList);
+
+            Console.ReadKey();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace CoreTest.ValidateTest
         {
             // Arrange
             Product product = new Product(name, 1, 1);
-            ProductValidator prelimProduct = new ProductValidator(product);
+            NameValidator prelimProduct = new NameValidator(product);
             bool isValid;
 
             // Act

@@ -2,20 +2,19 @@
 
 namespace InventoryUpdater.Products
 {
-    public class MakeStringList
+    public interface IProductsPrinter
     {
-        List<IProductName> Products;
+        List<string> PrintProducts(List<IProductName> products);
+    }
 
-        public MakeStringList(List<IProductName> products)
-        {
-            Products = products;
-        }
+    public class MakeStringList : IProductsPrinter
+    {
 
-        public List<string> PrintProducts()
+        public List<string> PrintProducts(List<IProductName> products)
         {
             List<string> result = new List<string>();
 
-            foreach (IProductPrinter product in Products)
+            foreach (IProductPrinter product in products)
             {
                 result.Add(product.Print());
             }

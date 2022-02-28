@@ -10,11 +10,16 @@ namespace Core.ProductBuilder
 
     public class ProductBuilder : IProductBuilder
     {
+        private readonly IStringValidator _validator;
+
+        public ProductBuilder(IStringValidator validator)
+        {
+            _validator = validator;
+        }
+
         public IProductName Build(Product product)
         {
-            var validator = new ProductValidator(product);
-
-            if (!validator.IsValidName())
+            if (!_validator.IsValidName(product))
             {
                 return new InvalidProduct("NO SUCH ITEM");
             }

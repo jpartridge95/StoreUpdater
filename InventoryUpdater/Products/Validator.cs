@@ -4,24 +4,27 @@ using Core.Validate;
 
 namespace InventoryUpdater.Products
 {
-    public class Validator
+    public interface IGroupValidator
     {
-        List<IProductName> Products;
+        void ValidateAllNumeric(List<IProductName> products);
+    }
 
-        public Validator(List<IProductName> products)
+    public class Validator : IGroupValidator
+    {
+        INumberValidator _validator;
+
+        public Validator(INumberValidator validator)
         {
-            Products = products;
+            _validator = validator;
         }
 
-        public void ValidateAllNumeric()
+        public void ValidateAllNumeric(List<IProductName> products)
         {
-            for (int i = 0; i < Products.Count; i++)
+            for (int i = 0; i < products.Count; i++)
             {
-                if (Products[i] is IProductData)
+                if (products[i] is IProductData)
                 {
-                    NumericValidator validator 
-                        = new NumericValidator((IProductData)Products[i]);
-                    validator.MakeQualityInRange();
+                    _validator.MakeQualityInRange((IProductData)products[i]);
                 }
             }
         }
