@@ -8,6 +8,12 @@ This store updater app is designed to take data from a txt file and through vari
 
 You will want to clone the repo before going any further.
 
+### Step zero - Testing it works
+
+Using powershell navigate to the directory containing the solution and run 
+
+`dotnet test`
+
 ### Step One - Building the app
 
 1. Using Powershell navigate to directory containing the source code you have cloned.
