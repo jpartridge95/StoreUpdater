@@ -4,27 +4,21 @@ namespace Core.Extraction
 {
     public interface IExtraction
     {
-        Product Extract();
+        Product Extract(string product);
     }
 
     public class Extraction : IExtraction
     {
-        private string _product;
 
-        public Extraction(string product)
+        public Product Extract(string product)
         {
-            _product = product;
-        }
-
-        public Product Extract()
-        {
-            if (!_product.Any(char.IsDigit))
+            if (!product.Any(char.IsDigit))
             {
-                return new Product(_product, 1, 1);
+                return new Product(product, 1, 1);
             }
 
-            _product = _product.Trim();
-            string[] asArray = _product.Split(" ");
+            product = product.Trim();
+            string[] asArray = product.Split(" ");
             ArraySegment<string> numericVals = 
                 new ArraySegment<string>(asArray, (asArray.Length - 2), 2);
             int sellIn = Convert.ToInt32(numericVals[0]);

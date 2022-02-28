@@ -1,4 +1,5 @@
-﻿using Core.Products;
+﻿using Core.Extraction;
+using Core.Products;
 using InventoryUpdater.File;
 using InventoryUpdater.Process;
 using Moq;
@@ -20,10 +21,20 @@ namespace InventoryUpdaterTest
         public void Extract_ReturnsListOfProducts_OnHappyPath()
         {
             // Arrange
-            ExtractData extractor = new(Data);
+            Mock<IExtraction> mock = new Mock<IExtraction>();
+            mock
+                .Setup(x => x.Extract("Brie 1 1"))
+                .Returns(new Product("Brie", 1, 1));
+            mock
+                .Setup(x => x.Extract("Food 1 1"))
+                .Returns(new Product("Food", 1, 1));
+            mock
+                .Setup(x => x.Extract("Bread 1 1"))
+                .Returns(new Product("Bread", 1, 1));
+            ExtractData extractor = new(mock.Object);
 
             // Act
-            var results = extractor.Extract();
+            var results = extractor.Extract(Data);
 
             // Assert
             Assert.IsType<List<Product>>(results);

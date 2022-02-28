@@ -10,10 +10,10 @@ namespace CoreTest.ExtractTest
         {
             // Arrange
             string product = "Aged Brie 1 1";
-            Extraction extractor = new Extraction(product);
+            Extraction extractor = new Extraction();
 
             // Act
-            var extractedProduct = extractor.Extract();
+            var extractedProduct = extractor.Extract(product);
 
             // Assert
             Assert.IsType<Product>(extractedProduct);
@@ -26,10 +26,10 @@ namespace CoreTest.ExtractTest
         public void ExtractToProduct_ReturnsNameCorrectly_WhenCorrectlyFormattedData(string product, string expected)
         {
             // Arrange
-            Extraction extractor = new Extraction(product);
+            Extraction extractor = new Extraction();
 
             // Act
-            var extractedProduct = extractor.Extract();
+            var extractedProduct = extractor.Extract(product);
 
             // Assert
             Assert.Equal(expected, extractedProduct.Name);
@@ -42,10 +42,10 @@ namespace CoreTest.ExtractTest
         public void ExtractToProduct_ReturnsSellInCorrectly_WhenCorrectlyFormatted(string product, int expected)
         {
             // Arrange
-            Extraction extractor = new Extraction(product);
+            Extraction extractor = new Extraction();
 
             // Act
-            var extractedProduct = extractor.Extract();
+            var extractedProduct = extractor.Extract(product);
 
             // Assert
             Assert.Equal(expected, extractedProduct.SellIn);
@@ -58,10 +58,10 @@ namespace CoreTest.ExtractTest
         public void ExtractToProduct_ReturnsQualityCorrectly_WhenCorrectlyFormatted(string product, int expected)
         {
             // Arrange
-            Extraction extractor = new Extraction(product);
+            Extraction extractor = new Extraction();
 
             // Act
-            var extractedProduct = extractor.Extract();
+            var extractedProduct = extractor.Extract(product);
 
             // Assert
             Assert.Equal(expected, extractedProduct.Quality);
@@ -72,10 +72,10 @@ namespace CoreTest.ExtractTest
         {
             // Arrange
             string product = "Invalid Data";
-            Extraction extractor = new Extraction(product);
+            Extraction extractor = new Extraction();
 
             // Act
-            var extractedProduct = extractor.Extract();
+            var extractedProduct = extractor.Extract(product);
 
             // Assert
             Assert.IsType<Product>(extractedProduct);

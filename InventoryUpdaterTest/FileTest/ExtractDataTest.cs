@@ -1,5 +1,7 @@
+using Core.Extraction;
 using Core.Products;
 using InventoryUpdater.File;
+using Moq;
 using System.Collections.Generic;
 using Xunit;
 
@@ -30,10 +32,20 @@ namespace InventoryUpdaterTest
         public void Extract_ReturnsListOfProducts_OnSuccess()
         {
             // Arrange
-            ExtractData sut = new ExtractData(Data);
+            Mock<IExtraction> mockExtractor = new Mock<IExtraction>();
+            mockExtractor
+                .Setup(x => x.Extract("Good Data 1 1"))
+                .Returns(new Product("Good Data", 1, 1));
+            mockExtractor
+                .Setup(x => x.Extract("Frozen Food 2 2"))
+                .Returns(new Product("Frozen Food", 2, 2));
+            mockExtractor
+                .Setup(x => x.Extract("Fresh Food 24 22"))
+                .Returns(new Product("Fresh Food", 24, 22));
+            ExtractData sut = new ExtractData(mockExtractor.Object);
 
             // Act
-            var result = sut.Extract();
+            var result = sut.Extract(Data);
 
             // Assert
             Assert.IsType<List<Product>>(result);
@@ -43,10 +55,20 @@ namespace InventoryUpdaterTest
         public void Extract_ReturnsListOfProducts_WhenDataContainsNoNumeric()
         {
             // Arrange
-            ExtractData sut = new ExtractData(InvalidData);
+            Mock<IExtraction> mockExtractor = new Mock<IExtraction>();
+            mockExtractor
+                .Setup(x => x.Extract("No qual"))
+                .Returns(new Product("No qual", 1, 1));
+            mockExtractor
+                .Setup(x => x.Extract("Still"))
+                .Returns(new Product("Still", 1, 1));
+            mockExtractor
+                .Setup(x => x.Extract("Nothing"))
+                .Returns(new Product("Nothing", 1, 1));
+            ExtractData sut = new ExtractData(mockExtractor.Object);
 
             // Act
-            var result = sut.Extract();
+            var result = sut.Extract(InvalidData);
 
             // Assert
             Assert.IsType<List<Product>>(result);

@@ -1,5 +1,6 @@
 ﻿using Core.DateTimeService;
 using Core.IO;
+using InventoryUpdater.File;
 using InventoryUpdater.Process;
 using InventoryUpdater.Products;
 using System;
@@ -10,8 +11,15 @@ using System.Threading.Tasks;
 
 namespace InventoryUpdater.Process
 {
-    internal class Runner
+    public class Runner
     {
+        private readonly IListExtraction _extractor;
+
+        public Runner(IListExtraction extractor)
+        {
+            _extractor = extractor;
+        }
+
         public async void Run()
         {
             IDateTimeProvider dt = new DateTimeProvider();
@@ -20,8 +28,7 @@ namespace InventoryUpdater.Process
             ReadFileStep readFile = new ReadFileStep(reader);
             var extractedToStrings = readFile.ReadFile();
 
-            ExtractStep extractor = new ExtractStep(extractedToStrings);
-            var extractedToObjects = extractor.Extract();
+            var extractedToObjects = _extractor.Extract(extractedToStrings);
 
             SubClassBuilderStep builder 
                 = new SubClassBuilderStep(new SubClassBuilder(extractedToObjects));
