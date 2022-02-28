@@ -12,11 +12,11 @@ You will want to clone the repo before going any further.
 
 1. Using Powershell navigate to directory containing the source code you have cloned.
 
-  If you aren't comfortable on powershell Microsoft has a great intro [here](https://docs.microsoft.com/en-us/learn/modules/introduction-to-powershell/)
+      If you aren't comfortable on powershell Microsoft has a great intro [here](https://docs.microsoft.com/en-us/learn/modules/introduction-to-powershell/)
 
 2. Run the following command (edit if you know what you are doing).
 
-  `dotnet publish InventoryUpdater -o C:\Users\[YourUsernameHere]\Documents\Updater\ProgramFiles`
+      `dotnet publish InventoryUpdater -o C:\Users\[YourUsernameHere]\Documents\Updater\ProgramFiles`
 
 3. Go Into your documents and look for the Updater folder, this is where all your application files live.
 
