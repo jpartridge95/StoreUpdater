@@ -20,7 +20,7 @@ You will want to clone the repo before going any further.
 
 3. Go Into your documents and look for the Updater folder, this is where all your application files live.
 
-4. Inside the application folder create a new folder and name it Reports (Case sensitive).
+4. Inside the Updater folder create a new folder and name it Reports (Case sensitive).
 
 #### Well done, you have completed setup ⭐
 
