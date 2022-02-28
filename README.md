@@ -12,6 +12,8 @@ You will want to clone the repo before going any further.
 
 Using Powershell navigate to directory containing the source code you have cloned.
 
+If you aren't comfortable on powershell Microsoft has a great intro [here](https://docs.microsoft.com/en-us/learn/modules/introduction-to-powershell/)
+
 Run the following command (edit if you know what you are doing).
 
 `dotnet publish InventoryUpdater -o C:\Users\[YourUsernameHere]\Documents\Updater\ProgramFiles`
@@ -22,7 +24,7 @@ Inside the application folder create a new folder and name it Reports (Case sens
 
 #### Well done, you have completed setup ⭐
 
-### Step two
+### Step two - Creating Your first report
 
 Inside the reports folder create a .txt file with the data you need in.
 
@@ -36,7 +38,7 @@ The list of items should be structured as so:
 
 eg. Frozen Item 24 42
 
-### Supported Items
+#### Supported Items
 - Frozen Item
 - Fresh Item
 - Soap
@@ -44,7 +46,23 @@ eg. Frozen Item 24 42
 - Aged Brie
 - *Any other input will be declared invalid*
 
+### Step Three - Running the program for the first time
 
+Assuming you are still inside the reports folder, go back up a level in file explorer/Powershell.
+
+Click on/Navigate into the ProgramFiles folder
+
+Double click on InventoryUpdater.exe
+
+#### Well done again, you just automatically generated your first report ⭐⭐
+
+On the newly generated report feel free to add new rows for new products and then run it again tomorrow, for a new generated report.
+
+### Step four - Creating Shortcuts (Optional)
+
+If you wish to do so you can now go back to the ProgramFiles folder and right click on the .exe file and select create a shortcut. This shortcut can be placed anywhere, mine is on my desktop because its easy to get to.
+
+The same thing can be done with the reports folder. Right click -> Create Shortcut -> Drag Shortcut to desktop.
 
 
 
