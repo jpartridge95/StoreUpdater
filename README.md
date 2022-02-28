@@ -27,8 +27,6 @@ The list of items should be structured as so:
 
 Using powershell navigate to the InventoryUpdater directory in the solution and type
 
-
 `dotnet run`
-
 
 If you need any assistance using Powershell check out Microsoft's introduction to it [here](https://docs.microsoft.com/en-us/learn/modules/introduction-to-powershell/)
