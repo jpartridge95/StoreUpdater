@@ -5,26 +5,25 @@ namespace InventoryUpdater.Products
 {
     public interface ISubClassListBuilder
     {
-        List<IProductName> BuildList();
+        List<IProductName> BuildList(List<Product> products);
     }
 
     public class SubClassBuilder : ISubClassListBuilder
     {
-        List<Product> Products;
+        private readonly IProductBuilder _builder;
 
-        public SubClassBuilder(List<Product> products)
+        public SubClassBuilder(IProductBuilder builder)
         {
-            Products = products;
+            _builder = builder;
         }
 
-        public List<IProductName> BuildList()
+        public List<IProductName> BuildList(List<Product> products)
         {
             List<IProductName> result = new List<IProductName>();
 
-            foreach(var product in Products)
+            foreach(var product in products)
             {
-                ProductBuilder builder = new ProductBuilder(product);
-                result.Add(builder.Build());
+                result.Add(_builder.Build(product));
             }
 
             return result;

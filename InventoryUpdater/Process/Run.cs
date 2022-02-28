@@ -14,25 +14,26 @@ namespace InventoryUpdater.Process
     public class Runner
     {
         private readonly IListExtraction _extractor;
+        private readonly IReadFile _reader;
+        private readonly ISubClassListBuilder _builder;
 
-        public Runner(IListExtraction extractor)
+        public Runner(
+            IListExtraction extractor,
+            IReadFile reader,
+            ISubClassListBuilder builder)
         {
             _extractor = extractor;
+            _reader = reader;
+            _builder = builder;
         }
 
         public async void Run()
         {
-            IDateTimeProvider dt = new DateTimeProvider();
-            ReadFromFile reader = new(dt);
-
-            ReadFileStep readFile = new ReadFileStep(reader);
-            var extractedToStrings = readFile.ReadFile();
+            var extractedToStrings = _reader.ReadFile();
 
             var extractedToObjects = _extractor.Extract(extractedToStrings);
 
-            SubClassBuilderStep builder 
-                = new SubClassBuilderStep(new SubClassBuilder(extractedToObjects));
-            var subClassList = builder.BuildList();
+            var subClassList = _builder.BuildList(extractedToObjects);
 
             Advancer advancer = new Advancer(subClassList);
             advancer.Advance();
@@ -43,7 +44,7 @@ namespace InventoryUpdater.Process
             MakeStringList printer = new MakeStringList(subClassList);
             var finalList = printer.PrintProducts();
 
-            WriteToFile writer = new WriteToFile(dt, finalList);
+            WriteToFile writer = new WriteToFile(new DateTimeProvider(), finalList);
             await writer.WriteData();
         }
     }

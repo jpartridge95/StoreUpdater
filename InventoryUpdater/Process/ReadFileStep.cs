@@ -3,7 +3,12 @@ using Core.IO;
 
 namespace InventoryUpdater.Process
 {
-    public class ReadFileStep
+    public interface IReadFile
+    {
+        List<string> ReadFile();
+    }
+
+    public class ReadFileStep : IReadFile
     {
         private readonly IReader _reader;
 

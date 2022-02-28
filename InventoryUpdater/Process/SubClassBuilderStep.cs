@@ -3,7 +3,7 @@ using InventoryUpdater.Products;
 
 namespace InventoryUpdater.Process
 {
-    public class SubClassBuilderStep
+    public class SubClassBuilderStep : ISubClassListBuilder
     {
         ISubClassListBuilder _builder;
 
@@ -12,11 +12,11 @@ namespace InventoryUpdater.Process
             _builder = builder;
         }
 
-        public List<IProductName> BuildList()
+        public List<IProductName> BuildList(List<Product> products)
         {
             try
             {
-                var subClassList = _builder.BuildList();
+                var subClassList = _builder.BuildList(products);
                 return subClassList;
             }
             catch
