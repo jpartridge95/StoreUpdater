@@ -11,7 +11,7 @@
         {
             string currentWorkingDir = AppDomain.CurrentDomain.BaseDirectory;
             string file 
-                = Path.Combine(currentWorkingDir, String.Format(@"..\..\..\Reports\{0}.txt", filename));
+                = Path.Combine(currentWorkingDir, String.Format(@"..\Reports\{0}.txt", filename));
             return Path.GetFullPath(file);
         }
     }
