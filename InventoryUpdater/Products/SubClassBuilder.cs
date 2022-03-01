@@ -5,7 +5,7 @@ namespace InventoryUpdater.Products
 {
     public interface ISubClassListBuilder
     {
-        List<IProductName> BuildList(List<Product> products);
+        List<IProductName> BuildList(List<IProductName> products);
     }
 
     public class SubClassBuilder : ISubClassListBuilder
@@ -17,7 +17,7 @@ namespace InventoryUpdater.Products
             _builder = builder;
         }
 
-        public List<IProductName> BuildList(List<Product> products)
+        public List<IProductName> BuildList(List<IProductName> products)
         {
             List<IProductName> result = new List<IProductName>();
 

@@ -18,7 +18,7 @@ namespace InventoryUpdaterTest
         };
 
         [Fact]
-        public void Extract_ReturnsListOfProducts_OnHappyPath()
+        public void Extract_ReturnsListOfIProductName_OnHappyPath()
         {
             // Arrange
             Mock<IExtraction> mock = new Mock<IExtraction>();
@@ -37,7 +37,7 @@ namespace InventoryUpdaterTest
             var results = extractor.Extract(Data);
 
             // Assert
-            Assert.IsType<List<Product>>(results);
+            Assert.IsType<List<IProductName>>(results);
         }
 
         

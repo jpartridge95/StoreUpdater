@@ -12,11 +12,11 @@ namespace InventoryUpdater.Process
             _extractor = extractor;
         }
 
-        public List<Product> Extract(List<string> data)
+        public List<IProductName> Extract(List<string> data)
         {
             try
             {
-                List<Product> extractedToObjects = _extractor.Extract(data);
+                List<IProductName> extractedToObjects = _extractor.Extract(data);
                 return extractedToObjects;
             }
             catch

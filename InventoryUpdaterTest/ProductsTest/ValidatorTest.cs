@@ -1,4 +1,5 @@
 ﻿using Core.Products;
+using Core.Validate;
 using InventoryUpdater.Products;
 using System.Collections.Generic;
 using Xunit;
@@ -21,11 +22,12 @@ namespace InventoryUpdaterTest.ProductsTest
         public void Validator_BringsQuality_WithinBusinessParams(int index, int expected)
         {
             // Arrange
-            Validator sut = new Validator(Data);
+            NumericValidator validator = new NumericValidator();
+            Validator sut = new Validator(validator);
             IProductData target = (IProductData)Data[index];
 
             // Act
-            sut.ValidateAllNumeric();
+            sut.ValidateAllNumeric(Data);
 
             // Assert
             Assert.Equal(expected, target.Quality);

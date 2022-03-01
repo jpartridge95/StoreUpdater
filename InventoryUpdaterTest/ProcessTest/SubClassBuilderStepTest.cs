@@ -21,13 +21,13 @@ namespace InventoryUpdaterTest.ProcessTest
         {
             // Arrange
             Mock<ISubClassListBuilder> builder = new Mock<ISubClassListBuilder>();
-            builder.Setup(x => x.BuildList())
+            builder.Setup(x => x.BuildList(It.IsAny<List<IProductName>>()))
                 .Returns(Data);
 
             SubClassBuilderStep sut = new SubClassBuilderStep(builder.Object);
 
             // Act
-            var results = sut.BuildList();
+            var results = sut.BuildList(Data);
 
             // Assert
             Assert.IsType<List<IProductName>>(results);

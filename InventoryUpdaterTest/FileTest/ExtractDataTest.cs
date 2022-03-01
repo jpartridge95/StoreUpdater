@@ -29,7 +29,7 @@ namespace InventoryUpdaterTest
         }
 
         [Fact]
-        public void Extract_ReturnsListOfProducts_OnSuccess()
+        public void Extract_ReturnsListOfIProductName_OnSuccess()
         {
             // Arrange
             Mock<IExtraction> mockExtractor = new Mock<IExtraction>();
@@ -48,11 +48,11 @@ namespace InventoryUpdaterTest
             var result = sut.Extract(Data);
 
             // Assert
-            Assert.IsType<List<Product>>(result);
+            Assert.IsType<List<IProductName>>(result);
         }
 
         [Fact]
-        public void Extract_ReturnsListOfProducts_WhenDataContainsNoNumeric()
+        public void Extract_ReturnsListOfIProductName_WhenDataContainsNoNumeric()
         {
             // Arrange
             Mock<IExtraction> mockExtractor = new Mock<IExtraction>();
@@ -71,7 +71,7 @@ namespace InventoryUpdaterTest
             var result = sut.Extract(InvalidData);
 
             // Assert
-            Assert.IsType<List<Product>>(result);
+            Assert.IsType<List<IProductName>>(result);
         }
     }
 }
