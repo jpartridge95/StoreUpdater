@@ -5,58 +5,56 @@ namespace Core.ProductBuilder
 {
     public interface IProductBuilder
     {
-        IProductName Build();
+        IProductName Build(IProductName product);
     }
 
     public class ProductBuilder : IProductBuilder
     {
-        public ProductBuilder(Product product)
+        private readonly IStringValidator _validator;
+
+        public ProductBuilder(IStringValidator validator)
         {
-            _product = product;
+            _validator = validator;
         }
 
-        Product _product;
-
-        public IProductName Build()
+        public IProductName Build(IProductName product)
         {
-            var validator = new ProductValidator(_product);
-
-            if (!validator.IsValidName())
+            if (!_validator.IsValidName(product))
             {
                 return new InvalidProduct("NO SUCH ITEM");
             }
 
-            switch (_product.Name)
+            switch (product.Name)
             {
                 case "Aged Brie":
                     return new AgedBrie(
-                        _product.Name,
-                        _product.SellIn,
-                        _product.Quality);
+                        ((Product)product).Name,
+                        ((Product)product).SellIn,
+                        ((Product)product).Quality);
 
                 case "Christmas Crackers":
                     return new ChristmasCracker(
-                        _product.Name,
-                        _product.SellIn,
-                        _product.Quality);
+                        ((Product)product).Name,
+                        ((Product)product).SellIn,
+                        ((Product)product).Quality);
 
                 case "Soap":
                     return new Product(
-                        _product.Name,
-                        _product.SellIn,
-                        _product.Quality);
+                        ((Product)product).Name,
+                        ((Product)product).SellIn,
+                        ((Product)product).Quality);
 
                 case "Frozen Item":
                     return new FrozenItem(
-                        _product.Name,
-                        _product.SellIn,
-                        _product.Quality);
+                        ((Product)product).Name,
+                        ((Product)product).SellIn,
+                        ((Product)product).Quality);
 
                 case "Fresh Item":
                     return new FreshItem(
-                        _product.Name,
-                        _product.SellIn,
-                        _product.Quality);
+                        ((Product)product).Name,
+                        ((Product)product).SellIn,
+                        ((Product)product).Quality);
 
                 default:
                     return new InvalidProduct("NO SUCH ITEM");

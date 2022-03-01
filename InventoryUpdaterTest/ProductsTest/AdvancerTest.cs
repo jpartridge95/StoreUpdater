@@ -20,11 +20,11 @@ namespace InventoryUpdaterTest.ProductsTest
         public void Advance_AdvancesAppropriately_ForSubclass(int index, int expected)
         {
             // Arrange
-            Advancer sut = new Advancer(Data);
+            Advancer sut = new Advancer();
             IProductData target = (IProductData)Data[index]; 
 
             // Act
-            sut.Advance();
+            sut.Advance(Data);
 
             // Assert
             Assert.Equal(expected, target.Quality);

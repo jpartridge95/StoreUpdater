@@ -25,10 +25,10 @@ namespace InventoryUpdaterTest.ProductsTest
         public void PrintProducts_ReturnsListOfStrings_OnSuccess()
         {
             // Arrange
-            MakeStringList sut = new MakeStringList(Data);
+            MakeStringList sut = new MakeStringList();
 
             // Act
-            var results = sut.PrintProducts();
+            var results = sut.PrintProducts(Data);
 
             // Assert
             Assert.IsType<List<string>>(results);
@@ -38,10 +38,10 @@ namespace InventoryUpdaterTest.ProductsTest
         public void PrintProducts_MatchesExpectedResult()
         {
             // Arrange
-            MakeStringList sut = new MakeStringList(Data);
+            MakeStringList sut = new MakeStringList();
 
             // Act
-            var results = sut.PrintProducts();
+            var results = sut.PrintProducts(Data);
 
             // Assert
             Assert.Equal(Expected, results);

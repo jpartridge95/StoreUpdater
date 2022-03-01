@@ -1,43 +1,54 @@
-﻿using Core.DateTimeService;
-using Core.IO;
-using InventoryUpdater.Process;
+﻿using Core.IO;
+using InventoryUpdater.File;
 using InventoryUpdater.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryUpdater.Process
 {
-    internal class Runner
+    public class Runner
     {
+        private readonly IListExtraction _extractor;
+        private readonly IReadFile _reader;
+        private readonly ISubClassListBuilder _builder;
+        private readonly IAdvancer _advancer;
+        private readonly IGroupValidator _validator;
+        private readonly IProductsPrinter _printer;
+        private readonly IWriter _writer;
+
+        public Runner(
+            IListExtraction extractor,
+            IReadFile reader,
+            ISubClassListBuilder builder,
+            IAdvancer advancer,
+            IGroupValidator validator,
+            IProductsPrinter printer,
+            IWriter writer)
+        {
+            _extractor = extractor;
+            _reader = reader;
+            _builder = builder;
+            _advancer = advancer;
+            _validator = validator;
+            _printer = printer;
+            _writer = writer;
+        }
+
         public async void Run()
         {
-            IDateTimeProvider dt = new DateTimeProvider();
-            ReadFromFile reader = new(dt);
+            var extractedToStrings = _reader.ReadFile();
 
-            ReadFileStep readFile = new ReadFileStep(reader);
-            var extractedToStrings = readFile.ReadFile();
+            var extractedToObjects = _extractor.Extract(extractedToStrings);
 
-            ExtractStep extractor = new ExtractStep(extractedToStrings);
-            var extractedToObjects = extractor.Extract();
+            var subClassList = _builder.BuildList(extractedToObjects);
 
-            SubClassBuilderStep builder 
-                = new SubClassBuilderStep(new SubClassBuilder(extractedToObjects));
-            var subClassList = builder.BuildList();
+            _advancer.Advance(subClassList);
 
-            Advancer advancer = new Advancer(subClassList);
-            advancer.Advance();
+            _validator.ValidateAllNumeric(subClassList);
 
-            Validator validator = new Validator(subClassList);
-            validator.ValidateAllNumeric();
+            var finalList = _printer.PrintProducts(subClassList);
 
-            MakeStringList printer = new MakeStringList(subClassList);
-            var finalList = printer.PrintProducts();
+            await _writer.WriteData(finalList);
 
-            WriteToFile writer = new WriteToFile(dt, finalList);
-            await writer.WriteData();
+            Console.ReadKey();
         }
     }
 }

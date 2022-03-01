@@ -5,26 +5,25 @@ namespace InventoryUpdater.File
 {
     public interface IListExtraction
     {
-        List<Product> Extract();
+        List<IProductName> Extract(List<string> data);
     }
 
     public class ExtractData : IListExtraction
     {
-        private List<string> Data;
+        private readonly IExtraction _extractor;
 
-        public ExtractData(List<String> data)
+        public ExtractData(IExtraction extractor)
         {
-            Data = data;
+            _extractor = extractor;
         }
 
-        public List<Product> Extract()
+        public List<IProductName> Extract(List<string> data)
         {
-            List<Product> result = new List<Product>();
+            List<IProductName> result = new List<IProductName>();
 
-            foreach(var stringProduct in Data)
+            foreach(var stringProduct in data)
             {
-                Extraction extractor = new Extraction(stringProduct);
-                result.Add(extractor.Extract());
+                result.Add(_extractor.Extract(stringProduct));
             }
 
             return result;

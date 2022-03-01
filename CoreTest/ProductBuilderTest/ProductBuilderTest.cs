@@ -1,23 +1,34 @@
 ﻿using Core.ProductBuilder;
 using Core.Products;
 using Core.Validate;
+using Moq;
 using Xunit;
 
 namespace CoreTest.ProductBuilderTest
 {
     public class ProductBuilderTest
     {
+        ProductBuilder Builder;
+
+        public ProductBuilderTest()
+        {
+            Mock<IStringValidator> Validator = new Mock<IStringValidator>();
+            Validator
+                .Setup(x => x.IsValidName(It.IsAny<IProductName>()))
+                .Returns(true);
+
+            Builder = new ProductBuilder(Validator.Object);
+        }
+
         [Fact]
         public void Build_ReturnsProductType_OnBadInput()
         {
             // Arrange
-
             string badInput = "Not A Product";
             Product prelimProduct = new Product(badInput, 1, 1);
-            ProductBuilder builder = new ProductBuilder(prelimProduct);
 
             // Act
-            IProductName product = builder.Build();
+            IProductName product = Builder.Build(prelimProduct);
 
             // Assert
             Assert.IsType<InvalidProduct>(product);
@@ -29,10 +40,9 @@ namespace CoreTest.ProductBuilderTest
             // Arrange
             string soap = "Soap";
             Product prelimProduct = new Product(soap, 1, 1);
-            ProductBuilder builder = new ProductBuilder(prelimProduct);
 
             // Act
-            IProductName product = builder.Build();
+            IProductName product = Builder.Build(prelimProduct);
 
             // Assert
             Assert.IsType<Product>(product);
@@ -44,10 +54,9 @@ namespace CoreTest.ProductBuilderTest
             // Arrange
             string freshItem = "Fresh Item";
             Product prelimProduct = new Product(freshItem, 1, 1);
-            ProductBuilder builder = new ProductBuilder(prelimProduct);
 
             // Act
-            IProductName product = builder.Build();
+            IProductName product = Builder.Build(prelimProduct);
 
             // Assert
             Assert.IsType<FreshItem>(product);
@@ -59,10 +68,9 @@ namespace CoreTest.ProductBuilderTest
             // Arrange
             string frozenItem = "Frozen Item";
             Product prelimProduct = new Product(frozenItem, 1, 1);
-            ProductBuilder builder = new ProductBuilder(prelimProduct);
 
             // Act
-            IProductName product = builder.Build();
+            IProductName product = Builder.Build(prelimProduct);
 
             // Assert
             Assert.IsType<FrozenItem>(product);
@@ -74,10 +82,9 @@ namespace CoreTest.ProductBuilderTest
             // Arrange
             string agedBrie = "Aged Brie";
             Product prelimProduct = new Product(agedBrie, 1, 1);
-            ProductBuilder builder = new ProductBuilder(prelimProduct);
 
             // Act
-            IProductName product = builder.Build();
+            IProductName product = Builder.Build(prelimProduct);
 
             // Assert
             Assert.IsType<AgedBrie>(product);
@@ -89,10 +96,9 @@ namespace CoreTest.ProductBuilderTest
             // Arrange
             string crackers = "Christmas Crackers";
             Product prelimProduct = new Product(crackers, 1, 1);
-            ProductBuilder builder = new ProductBuilder(prelimProduct);
 
             // Act
-            IProductName product = builder.Build();
+            IProductName product = Builder.Build(prelimProduct);
 
             // Assert
             Assert.IsType<ChristmasCracker>(product);

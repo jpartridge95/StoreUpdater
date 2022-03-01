@@ -3,21 +3,20 @@ using InventoryUpdater.File;
 
 namespace InventoryUpdater.Process
 {
-    public class ExtractStep
+    public class ExtractStep : IListExtraction
     {
-        List<string> Data;
+        private readonly IListExtraction _extractor;
 
-        public ExtractStep(List<string> data)
+        public ExtractStep(IListExtraction extractor)
         {
-            Data = data;
+            _extractor = extractor;
         }
 
-        public List<Product> Extract()
+        public List<IProductName> Extract(List<string> data)
         {
             try
             {
-                IListExtraction extractor = new ExtractData(Data);
-                List<Product> extractedToObjects = extractor.Extract();
+                List<IProductName> extractedToObjects = _extractor.Extract(data);
                 return extractedToObjects;
             }
             catch

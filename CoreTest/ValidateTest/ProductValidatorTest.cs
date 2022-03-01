@@ -17,11 +17,11 @@ namespace CoreTest.ValidateTest
         {
             // Arrange
             Product product = new Product(name, 1, 1);
-            ProductValidator prelimProduct = new ProductValidator(product);
+            NameValidator prelimProduct = new NameValidator();
             bool isValid;
 
             // Act
-            isValid = prelimProduct.IsValidName();
+            isValid = prelimProduct.IsValidName(product);
 
             // Assert
             Assert.Equal(expected, isValid);
@@ -38,10 +38,10 @@ namespace CoreTest.ValidateTest
         {
             // Arrange
             Product product = new Product("test", 1, quality);
-            NumericValidator numericValidator = new NumericValidator(product);
+            NumericValidator numericValidator = new NumericValidator();
 
             // Act
-            numericValidator.MakeQualityInRange();
+            numericValidator.MakeQualityInRange(product);
 
             // Assert
             Assert.Equal(expected, product.Quality);
